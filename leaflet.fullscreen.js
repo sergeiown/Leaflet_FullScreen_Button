@@ -21,15 +21,22 @@ L.Control.FullScreenButton = L.Control.extend({
             this.toggleFullScreen(map);
         };
 
-        const handleFullScreenChange = () => this._handleFullScreenChange(container);
+        this._eventHandlers = {
+            fullscreenchange: () => this._handleFullScreenChange(container),
+            keydown: this._preventF11Default.bind(this),
+        };
 
-        document.addEventListener('fullscreenchange', handleFullScreenChange);
-        document.addEventListener('mozfullscreenchange', handleFullScreenChange);
-        document.addEventListener('webkitfullscreenchange', handleFullScreenChange);
-        document.addEventListener('MSFullscreenChange', handleFullScreenChange);
-        document.addEventListener('keydown', this._preventF11Default.bind(this));
+        document.addEventListener('fullscreenchange', this._eventHandlers.fullscreenchange);
+        document.addEventListener('mozfullscreenchange', this._eventHandlers.fullscreenchange);
+        document.addEventListener('webkitfullscreenchange', this._eventHandlers.fullscreenchange);
+        document.addEventListener('MSFullscreenChange', this._eventHandlers.fullscreenchange);
+        document.addEventListener('keydown', this._eventHandlers.keydown);
 
         return container;
+    },
+
+    onRemove: function () {
+        this._removeEventListeners();
     },
 
     toggleFullScreen: async function (map) {
@@ -99,6 +106,17 @@ L.Control.FullScreenButton = L.Control.extend({
     _updateIcon: function (container, isFullScreen) {
         const iconUrl = isFullScreen ? this.options.exitFullScreenIcon : this.options.enterFullScreenIcon;
         container.style.backgroundImage = `url(${iconUrl})`;
+    },
+
+    _removeEventListeners: function () {
+        if (this._eventHandlers) {
+            document.removeEventListener('fullscreenchange', this._eventHandlers.fullscreenchange);
+            document.removeEventListener('mozfullscreenchange', this._eventHandlers.fullscreenchange);
+            document.removeEventListener('webkitfullscreenchange', this._eventHandlers.fullscreenchange);
+            document.removeEventListener('MSFullscreenChange', this._eventHandlers.fullscreenchange);
+            document.removeEventListener('keydown', this._eventHandlers.keydown);
+            delete this._eventHandlers;
+        }
     },
 });
 
