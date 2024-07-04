@@ -21,10 +21,12 @@ L.Control.FullScreenButton = L.Control.extend({
             this.toggleFullScreen(map);
         };
 
-        document.addEventListener('fullscreenchange', () => this._handleFullScreenChange(container));
-        document.addEventListener('mozfullscreenchange', () => this._handleFullScreenChange(container));
-        document.addEventListener('webkitfullscreenchange', () => this._handleFullScreenChange(container));
-        document.addEventListener('MSFullscreenChange', () => this._handleFullScreenChange(container));
+        const handleFullScreenChange = () => this._handleFullScreenChange(container);
+
+        document.addEventListener('fullscreenchange', handleFullScreenChange);
+        document.addEventListener('mozfullscreenchange', handleFullScreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullScreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullScreenChange);
         document.addEventListener('keydown', this._preventF11Default.bind(this));
 
         return container;
