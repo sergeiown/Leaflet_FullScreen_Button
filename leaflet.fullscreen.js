@@ -105,7 +105,9 @@ L.Control.FullScreenButton = L.Control.extend({
 
     _updateIcon: function (container, isFullScreen) {
         const iconUrl = isFullScreen ? this.options.exitFullScreenIcon : this.options.enterFullScreenIcon;
-        container.style.backgroundImage = `url(${iconUrl})`;
+        if (container.classList.contains('leaflet-control-fullscreen')) {
+            container.style.backgroundImage = `url('${iconUrl}')`;
+        }
     },
 
     _removeEventListeners: function () {
