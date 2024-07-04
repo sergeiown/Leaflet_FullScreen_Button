@@ -41,42 +41,37 @@ L.Control.FullScreenButton = L.Control.extend({
             document.msFullscreenElement ||
             mapContainer.classList.contains('pseudo-fullscreen');
 
-        if (!isFullScreen) {
-            try {
-                if (mapContainer.requestFullscreen) {
-                    await mapContainer.requestFullscreen();
-                } else if (mapContainer.mozRequestFullScreen) {
-                    await mapContainer.mozRequestFullScreen();
-                } else if (mapContainer.webkitRequestFullscreen) {
-                    await mapContainer.webkitRequestFullscreen();
-                } else if (mapContainer.msRequestFullscreen) {
-                    await mapContainer.msRequestFullscreen();
-                } else {
-                    mapContainer.classList.add('pseudo-fullscreen');
-                    this._updateIcon(this._container, true);
-                    this._handleFullScreenChange(mapContainer);
-                }
-            } catch (err) {
-                console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        try {
+            await this._toggleFullScreenElement(mapContainer, !isFullScreen);
+            this._updateIcon(this._container, !isFullScreen);
+            this._handleFullScreenChange(mapContainer);
+        } catch (err) {
+            console.error(`Error attempting to change full-screen mode: ${err.message} (${err.name})`);
+        }
+    },
+
+    _toggleFullScreenElement: async function (element, enterFullScreen = true) {
+        const fullScreenFunctions = [
+            { enter: 'requestFullscreen', exit: 'exitFullscreen' },
+            { enter: 'mozRequestFullScreen', exit: 'mozCancelFullScreen' },
+            { enter: 'webkitRequestFullscreen', exit: 'webkitExitFullscreen' },
+            { enter: 'msRequestFullscreen', exit: 'msExitFullscreen' },
+        ];
+
+        for (const fn of fullScreenFunctions) {
+            if (enterFullScreen && element[fn.enter]) {
+                await element[fn.enter]();
+                return;
+            } else if (!enterFullScreen && document[fn.exit]) {
+                await document[fn.exit]();
+                return;
             }
+        }
+
+        if (enterFullScreen) {
+            element.classList.add('pseudo-fullscreen');
         } else {
-            try {
-                if (document.exitFullscreen) {
-                    await document.exitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    await document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) {
-                    await document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    await document.msExitFullscreen();
-                } else {
-                    mapContainer.classList.remove('pseudo-fullscreen');
-                    this._updateIcon(this._container, false);
-                    this._handleFullScreenChange(mapContainer);
-                }
-            } catch (err) {
-                console.error(`Error attempting to disable full-screen mode: ${err.message} (${err.name})`);
-            }
+            element.classList.remove('pseudo-fullscreen');
         }
     },
 
