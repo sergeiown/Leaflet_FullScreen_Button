@@ -6,25 +6,27 @@ The idea came from a small project: [Map_with_Marker_Clusters](https://github.co
 
 ## Usage
 
-1. Install **[Leaflet](https://leafletjs.com/download.html)**
+- Install **[Leaflet](https://leafletjs.com/download.html)**
 
-2. Add `leaflet.fullscreen.js` to the page
+- Add `leaflet.fullscreen.js` to the page
 ```
 <script src="./leaflet.fullscreen.js"></script>
 ```
 
-3. Initialize the map
+- Initialize the map
 ```
 const map = L.map('map').setView([49.1, 31.2], 5);
 ```
-4. Add a layer
+
+- Add a layer
 ```
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors',
                 maxZoom: 19,
             }).addTo(map);
 ```
-5. Add a new control for full-screen mode with options
+
+- Add a new control for full-screen mode with options
 ```
 L.control.fullScreenButton({ position: 'topright' }).addTo(map);
 ```
