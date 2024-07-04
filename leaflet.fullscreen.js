@@ -1,3 +1,5 @@
+/* Copyright (c) 2024 Serhii I. Myshko https://github.com/sergeiown/Leaflet_FullScreen_Button/blob/main/LICENSE */
+
 L.Control.FullScreenButton = L.Control.extend({
     options: {
         position: 'topleft',
