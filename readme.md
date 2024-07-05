@@ -66,6 +66,10 @@ The `pseudo-fullscreen` class **\*** is used as an alternative method for simula
 
 **\*** *- styles are added dynamically using JS which allows to avoid an extra CSS file*
 
+## Example of use
+
+**https://sergeiown.github.io/Leaflet_FullScreen_Button/**
+
 ## MIT License
 
-[Copyright (c) 2024 Serhii I. Myshko](https://github.com/sergeiown/Leaflet_FullScreen_Button/blob/main/LICENSE)
+**[Copyright (c) 2024 Serhii I. Myshko](https://github.com/sergeiown/Leaflet_FullScreen_Button/blob/main/LICENSE)**
