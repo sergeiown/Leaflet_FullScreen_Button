@@ -27,9 +27,21 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             }).addTo(map);
 ```
 
-- Add a new control for full-screen mode with options
+- Add a new control for full screen mode with options of your choice
 ```
-L.control.fullScreenButton({ position: 'topright' }).addTo(map);
+   L.control
+                .fullScreenButton({
+                    position: 'topleft',
+                    title: 'Toggle fullscreen mode',
+                    enterFullScreenIcon: './full_screen.png',
+                    exitFullScreenIcon: './general_screen.png',
+                    enterFullScreenTitle: 'Enter fullscreen mode',
+                    exitFullScreenTitle: 'Exit fullscreen mode',
+                    onFullScreenChange: (isFullScreen) => {
+                        console.log(`FullScreen mode is now ${isFullScreen ? 'ON' : 'OFF'}`);
+                    },
+                })
+                .addTo(map);
 ```
 
 ## API
