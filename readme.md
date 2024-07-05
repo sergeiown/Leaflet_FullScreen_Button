@@ -34,8 +34,6 @@ L.control.fullScreenButton({ position: 'topright' }).addTo(map);
 
 ## API
 
-It simply extends the `L.Control.FullScreenButton` class with a few options:
-
 Option                 | Type     | Default                   | Description
 -----------------------|----------|---------------------------|------------------------------------------------------
 `position`              | `String`   | `'topleft'`                | Position of the button on the map.
@@ -46,8 +44,6 @@ Option                 | Type     | Default                   | Description
 `exitFullScreenTitle`    | `String`   | `'Exit fullscreen mode'`    | The text of the prompt to exit full-screen mode.
 `onFullScreenChange`     | `Function` | `null`                      | Callback function with a callback when changing the full-screen mode.
 
-and the method:
-
 | Method                         | Returns            | Description                                                                                                                                               |
 |-------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | `toggleFullScreen(map: L.Map)`| `Promise<void>`       | Switches the full screen mode state for the `map`. Uses different methods for requesting full screen mode depending on the browser.             |                            |
@@ -56,7 +52,7 @@ and the method:
 
 The `pseudo-fullscreen` class **\*** is used as an alternative method for simulating fullscreen mode in cases where direct API methods for fullscreen mode are not supported by the browser. A prime example is the Safari browser on iOS when used on an iPhone.
 
-*\* - styles are added dynamically using JS which allows to avoid an extra CSS file*
+**\*** - styles are added dynamically using JS which allows to avoid an extra CSS file*
 
 ## MIT License
 
