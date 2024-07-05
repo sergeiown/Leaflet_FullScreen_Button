@@ -22,7 +22,7 @@ L.Control.FullScreenButton = L.Control.extend({
         };
 
         this._eventHandlers = {
-            fullscreenchange: () => this._handleFullScreenChange(container),
+            fullscreenchange: this._throttle(() => this._handleFullScreenChange(container), 100),
             keydown: this._preventF11Default.bind(this),
         };
 
@@ -96,11 +96,10 @@ L.Control.FullScreenButton = L.Control.extend({
             if (this._isHandlingFullScreenChange) return;
             this._isHandlingFullScreenChange = true;
 
-            this.options.onFullScreenChange(isFullScreen);
-
-            setTimeout(() => {
+            requestAnimationFrame(() => {
+                this.options.onFullScreenChange(isFullScreen);
                 this._isHandlingFullScreenChange = false;
-            }, 0);
+            });
         }
     },
 
@@ -126,6 +125,19 @@ L.Control.FullScreenButton = L.Control.extend({
             document.removeEventListener('keydown', this._eventHandlers.keydown);
             delete this._eventHandlers;
         }
+    },
+
+    _throttle: function (func, limit) {
+        let inThrottle;
+        return function () {
+            const args = arguments;
+            const context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(() => (inThrottle = false), limit);
+            }
+        };
     },
 });
 
