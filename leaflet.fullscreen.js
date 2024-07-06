@@ -89,8 +89,8 @@ L.Control.FullScreenButton = L.Control.extend({
             document.webkitFullscreenElement ||
             document.msFullscreenElement;
 
-        this._updateIcon(container, isFullScreen);
-        container.title = isFullScreen ? this.options.exitFullScreenTitle : this.options.enterFullScreenTitle;
+        this._updateIcon(this._container, isFullScreen);
+        this._container.title = isFullScreen ? this.options.exitFullScreenTitle : this.options.enterFullScreenTitle;
 
         if (typeof this.options.onFullScreenChange === 'function') {
             if (this._isHandlingFullScreenChange) return;
