@@ -36,13 +36,13 @@ L.control.fullScreenButton({ position: 'topleft' }).addTo(map);
 L.control
     .fullScreenButton({
         position: 'topleft',
-        title: 'yourtext',
-        enterFullScreenIcon: './youriconpath',
-        exitFullScreenIcon: './youriconpath',
-        enterFullScreenTitle: 'yourtext',
-        exitFullScreenTitle: 'yourtext',
+        title: 'your text',
+        enterFullScreenIcon: 'path/to/enter-icon.svg',
+        exitFullScreenIcon: 'path/to/exit-icon.svg',
+        enterFullScreenTitle: 'your text',
+        exitFullScreenTitle: 'your text',
         onFullScreenChange: () => {
-            yourfunction;
+            your function;
         },
     })
     .addTo(map);
@@ -79,7 +79,22 @@ Option                    | Type       | Default                      | Descript
 
 ## Note
 
-The pseudo-fullscreen mode is used as an alternative method for simulating fullscreen mode in cases where direct API methods for fullscreen mode are not supported by the browser. A prime example is the Safari browser on iOS when used on an iPhone
+- The pseudo-fullscreen mode is used as an alternative method for simulating fullscreen mode in cases where direct API methods for fullscreen mode are not supported by the browser. A prime example is the Safari browser on iOS when used on an iPhone
+- Behavior when pressing the F11 key has been changed to use the `toggleFullScreen(map: L.Map)` method
+
+## Browser Support
+
+| Browser          | Version | Support Description                                                                 |
+|------------------|---------|-------------------------------------------------------------------------------------|
+| **Chrome**       | 50+     | Full support of the fullscreen API.                                                 |
+| **Firefox**      | 47+     | Full support of the fullscreen API.                                                 |
+| **Edge**         | 15+     | Full support of the fullscreen API.                                                 |
+| **Safari**       | 11+     | Full support of the fullscreen API, except on iOS.                                  |
+| **Opera**        | 37+     | Full support of the fullscreen API.                                                 |
+| **IE**           | 11      | Limited support using msRequestFullscreen/msExitFullscreen methods.                 |
+| **iOS Safari**   | 11+     | Pseudo-fullscreen mode through CSS classes, as the fullscreen API is not supported. |
+| **Android Browser** | 50+  | Full support of the fullscreen API.                                                 |
+
 
 ## Example of use
 
