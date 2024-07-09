@@ -63,15 +63,15 @@ fullScreenControl
 
 ## API
 
-Option                 | Type     | Default                   | Description
------------------------|----------|---------------------------|------------------------------------------------------
-`position`              | `String`   | `'topleft'`                | Position of the button on the map.
-`title`                  | `String`   | `'Toggle fullscreen mode'`  | The text of the button tooltip.
-`enterFullScreenIcon`    | `String`   | `'./full_screen.png'` | Icon to enter full-screen mode.
-`exitFullScreenIcon`     | `String`   | `'./general_screen.png'` | Icon to exit full-screen mode.
-`enterFullScreenTitle`   | `String`   | `'Enter fullscreen mode'`   | Prompt text for entering full-screen mode.
-`exitFullScreenTitle`    | `String`   | `'Exit fullscreen mode'`    | The text of the prompt to exit full-screen mode.
-`onFullScreenChange`     | `Function` | `null`                      | Callback function with a callback when changing the full-screen mode.
+Option                    | Type       | Default                      | Description
+--------------------------|------------|------------------------------|------------------------------------------------------
+`position`                | `String`   | `'topleft'`                  | Position of the button on the map.
+`title`                   | `String`   | `'Toggle fullscreen mode'`   | The text of the button tooltip.
+`enterFullScreenIcon`     | `String`   | `null`                       | Image path for the button to enter full screen mode. Can be specified in formats: PNG, JPEG, SVG, or other formats supported by the web browser.
+`exitFullScreenIcon`      | `String`   | `null`                       | Image path for the button to exit full screen mode. Can be specified in formats: PNG, JPEG, SVG, or other formats supported by the web browser.
+`enterFullScreenTitle`    | `String`   | `'Enter fullscreen mode'`    | Prompt text for entering full-screen mode.
+`exitFullScreenTitle`     | `String`   | `'Exit fullscreen mode'`     | The text of the prompt to exit full-screen mode.
+`onFullScreenChange`      | `Function` | `null`                       | Callback function that is called when the fullscreen mode changes.
 
 | Method                         | Returns            | Description                                                                                                                                               |
 |-------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
