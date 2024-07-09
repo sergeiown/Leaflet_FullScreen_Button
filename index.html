@@ -18,14 +18,14 @@
             content="Plugin for full-screen Leaflet button. Simple and straightforward. Does not contain anything extra."
         />
         <meta property="og:url" content="https://sergeiown.github.io/Leaflet_FullScreen_Button/" />
-        <meta property="og:image" content="./full_screen.png" />
+        <meta property="og:image" content="./favicon.png" />
         <meta property="og:image:width" content="100" />
         <meta property="og:image:height" content="100" />
         <meta property="og:image:alt" content="Leaflet FullScreen Logo" />
 
         <title>Leaflet FullScreen Button</title>
 
-        <link rel="icon" type="image/png" href="./full_screen.png" />
+        <link rel="icon" type="image/png" href="./favicon.png" />
         <link
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -97,10 +97,6 @@
 
             L.control
                 .fullScreenButton({
-                    position: 'topleft',
-                    title: 'Toggle fullscreen mode',
-                    enterFullScreenTitle: 'Enter fullscreen mode',
-                    exitFullScreenTitle: 'Exit fullscreen mode',
                     onFullScreenChange: (isFullScreen) => {
                         console.log(`FullScreen mode is now ${isFullScreen ? 'ON' : 'OFF'}`);
                     },
