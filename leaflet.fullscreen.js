@@ -49,28 +49,21 @@ L.Control.FullScreenButton = L.Control.extend({
     },
 
     _toggleFullScreenElement: async function (element, enterFullScreen = true) {
-        const fullscreenMethods = [
-            { enter: 'requestFullscreen', exit: 'exitFullscreen' },
-            { enter: 'mozRequestFullScreen', exit: 'mozCancelFullScreen' },
-            { enter: 'webkitRequestFullscreen', exit: 'webkitExitFullscreen' },
-            { enter: 'msRequestFullscreen', exit: 'msExitFullscreen' },
-        ];
+        const methods = {
+            enter: ['requestFullscreen', 'mozRequestFullScreen', 'webkitRequestFullscreen', 'msRequestFullscreen'],
+            exit: ['exitFullscreen', 'mozCancelFullScreen', 'webkitExitFullscreen', 'msExitFullscreen'],
+        };
 
-        for (const method of fullscreenMethods) {
-            if (enterFullScreen && element[method.enter]) {
-                await element[method.enter]();
-                return;
-            } else if (!enterFullScreen && document[method.exit]) {
-                await document[method.exit]();
+        const target = enterFullScreen ? element : document;
+
+        for (const method of methods[enterFullScreen ? 'enter' : 'exit']) {
+            if (target[method]) {
+                await target[method]();
                 return;
             }
         }
 
-        if (enterFullScreen) {
-            element.classList.add('pseudo-fullscreen');
-        } else {
-            element.classList.remove('pseudo-fullscreen');
-        }
+        element.classList.toggle('pseudo-fullscreen', enterFullScreen);
     },
 
     _handleFullScreenChange: function (container) {
