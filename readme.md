@@ -21,27 +21,31 @@ const map = L.map('map').setView([49.1, 31.2], 5);
 - Add a layer
 ```
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors',
-                minZoom: 4,
-                maxZoom: 19,
-            }).addTo(map);
+    attribution: '© OpenStreetMap contributors',
+    minZoom: 4,
+    maxZoom: 19,
+}).addTo(map);
 ```
 
 - Add a new control for full screen mode with options of your choice
 ```
-   L.control
-                .fullScreenButton({
-                    position: 'topleft',
-                    title: 'Toggle fullscreen mode',
-                    enterFullScreenIcon: './full_screen.png',
-                    exitFullScreenIcon: './general_screen.png',
-                    enterFullScreenTitle: 'Enter fullscreen mode',
-                    exitFullScreenTitle: 'Exit fullscreen mode',
-                    onFullScreenChange: (isFullScreen) => {
-                        console.log(`FullScreen mode is now ${isFullScreen ? 'ON' : 'OFF'}`);
-                    },
-                })
-                .addTo(map);
+L.control.fullScreenButton({ position: 'topleft' }).addTo(map);
+```
+or
+```
+L.control
+    .fullScreenButton({
+        position: 'topleft',
+        title: 'Toggle fullscreen mode',
+        enterFullScreenIcon: './full_screen.png',
+        exitFullScreenIcon: './general_screen.png',
+        enterFullScreenTitle: 'Enter fullscreen mode',
+        exitFullScreenTitle: 'Exit fullscreen mode',
+        onFullScreenChange: (isFullScreen) => {
+            console.log(`FullScreen mode is now ${isFullScreen ? 'ON' : 'OFF'}`);
+        },
+    })
+    .addTo(map);
 ```
 
 ## API
