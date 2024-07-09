@@ -36,13 +36,13 @@ or
 L.control
     .fullScreenButton({
         position: 'topleft',
-        title: 'Toggle fullscreen mode',
-        enterFullScreenIcon: './full_screen.png',
-        exitFullScreenIcon: './general_screen.png',
-        enterFullScreenTitle: 'Enter fullscreen mode',
-        exitFullScreenTitle: 'Exit fullscreen mode',
-        onFullScreenChange: (isFullScreen) => {
-            console.log(`FullScreen mode is now ${isFullScreen ? 'ON' : 'OFF'}`);
+        title: 'yourtext',
+        enterFullScreenIcon: './youriconpath',
+        exitFullScreenIcon: './youriconpath',
+        enterFullScreenTitle: 'yourtext',
+        exitFullScreenTitle: 'yourtext',
+        onFullScreenChange: () => {
+            yourfunction;
         },
     })
     .addTo(map);
