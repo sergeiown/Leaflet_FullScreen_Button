@@ -48,6 +48,19 @@ L.control
     .addTo(map);
 ```
 
+- You can call the toggleFullScreen method programmatically if necessary
+```
+const fullScreenControl = L.control.fullScreenButton();
+fullScreenControl
+    .toggleFullScreen(map)
+    .then(() => {
+        console.log('Full screen toggled');
+    })
+    .catch((err) => {
+        console.error('Error toggling full screen:', err);
+    });
+```
+
 ## API
 
 Option                 | Type     | Default                   | Description
@@ -62,7 +75,7 @@ Option                 | Type     | Default                   | Description
 
 | Method                         | Returns            | Description                                                                                                                                               |
 |-------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `toggleFullScreen(map: L.Map)`| `Promise<void>`       | Switches the full screen mode state for the `map`. Uses different methods for requesting full screen mode depending on the browser.             |                            |
+| `toggleFullScreen(map: L.Map)`| `Promise<void>`       | Toggles the full screen mode state for the map. Uses different methods for requesting full screen mode depending on the browser.             |                            |
 
 ## Note
 
