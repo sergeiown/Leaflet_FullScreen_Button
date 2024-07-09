@@ -26,11 +26,7 @@ L.Control.FullScreenButton = L.Control.extend({
             keydown: this._preventF11Default.bind(this),
         };
 
-        document.addEventListener('fullscreenchange', this._eventHandlers.fullscreenchange);
-        document.addEventListener('mozfullscreenchange', this._eventHandlers.fullscreenchange);
-        document.addEventListener('webkitfullscreenchange', this._eventHandlers.fullscreenchange);
-        document.addEventListener('MSFullscreenChange', this._eventHandlers.fullscreenchange);
-        document.addEventListener('keydown', this._eventHandlers.keydown);
+        this._addEventListeners();
 
         return container;
     },
@@ -41,12 +37,7 @@ L.Control.FullScreenButton = L.Control.extend({
 
     toggleFullScreen: async function (map) {
         const mapContainer = map.getContainer();
-        const isFullScreen =
-            document.fullscreenElement ||
-            document.mozFullScreenElement ||
-            document.webkitFullscreenElement ||
-            document.msFullscreenElement ||
-            mapContainer.classList.contains('pseudo-fullscreen');
+        const isFullScreen = this._isFullScreen(mapContainer);
 
         try {
             await this._toggleFullScreenElement(mapContainer, !isFullScreen);
@@ -58,19 +49,19 @@ L.Control.FullScreenButton = L.Control.extend({
     },
 
     _toggleFullScreenElement: async function (element, enterFullScreen = true) {
-        const fullScreenFunctions = [
+        const fullscreenMethods = [
             { enter: 'requestFullscreen', exit: 'exitFullscreen' },
             { enter: 'mozRequestFullScreen', exit: 'mozCancelFullScreen' },
             { enter: 'webkitRequestFullscreen', exit: 'webkitExitFullscreen' },
             { enter: 'msRequestFullscreen', exit: 'msExitFullscreen' },
         ];
 
-        for (const fn of fullScreenFunctions) {
-            if (enterFullScreen && element[fn.enter]) {
-                await element[fn.enter]();
+        for (const method of fullscreenMethods) {
+            if (enterFullScreen && element[method.enter]) {
+                await element[method.enter]();
                 return;
-            } else if (!enterFullScreen && document[fn.exit]) {
-                await document[fn.exit]();
+            } else if (!enterFullScreen && document[method.exit]) {
+                await document[method.exit]();
                 return;
             }
         }
@@ -83,12 +74,7 @@ L.Control.FullScreenButton = L.Control.extend({
     },
 
     _handleFullScreenChange: function (container) {
-        const isFullScreen =
-            document.fullscreenElement ||
-            document.mozFullScreenElement ||
-            document.webkitFullscreenElement ||
-            document.msFullscreenElement;
-
+        const isFullScreen = this._isFullScreen(container);
         this._updateIcon(container, isFullScreen);
         this._container.title = isFullScreen ? this.options.exitFullScreenTitle : this.options.enterFullScreenTitle;
 
@@ -116,6 +102,14 @@ L.Control.FullScreenButton = L.Control.extend({
         }
     },
 
+    _addEventListeners: function () {
+        document.addEventListener('fullscreenchange', this._eventHandlers.fullscreenchange);
+        document.addEventListener('mozfullscreenchange', this._eventHandlers.fullscreenchange);
+        document.addEventListener('webkitfullscreenchange', this._eventHandlers.fullscreenchange);
+        document.addEventListener('MSFullscreenChange', this._eventHandlers.fullscreenchange);
+        document.addEventListener('keydown', this._eventHandlers.keydown);
+    },
+
     _removeEventListeners: function () {
         if (this._eventHandlers) {
             document.removeEventListener('fullscreenchange', this._eventHandlers.fullscreenchange);
@@ -139,6 +133,16 @@ L.Control.FullScreenButton = L.Control.extend({
             }
         };
     },
+
+    _isFullScreen: function (element) {
+        return (
+            document.fullscreenElement ||
+            document.mozFullScreenElement ||
+            document.webkitFullscreenElement ||
+            document.msFullscreenElement ||
+            element.classList.contains('pseudo-fullscreen')
+        );
+    },
 });
 
 L.control.fullScreenButton = function (options) {
@@ -150,7 +154,7 @@ style.innerHTML = `
     .pseudo-fullscreen {
         background-color: #ffffff;
         top: 0;
-        left: 0;    
+        left: 0;
         position: fixed !important;
         width: 100% !important;
         height: 100% !important;
