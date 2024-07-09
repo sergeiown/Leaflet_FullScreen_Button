@@ -92,6 +92,7 @@ L.Control.FullScreenButton = L.Control.extend({
     _preventF11Default: function (event) {
         if (event.key === 'F11') {
             event.preventDefault();
+            this.toggleFullScreen(map);
         }
     },
 
