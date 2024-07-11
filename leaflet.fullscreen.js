@@ -64,6 +64,8 @@ L.Control.FullScreenButton = L.Control.extend({
         }
 
         element.classList.toggle('pseudo-fullscreen', enterFullScreen);
+
+        map.invalidateSize();
     },
 
     _handleFullScreenChange: function (container) {
