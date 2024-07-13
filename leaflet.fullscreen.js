@@ -9,6 +9,7 @@ L.Control.FullScreenButton = L.Control.extend({
         enterFullScreenTitle: 'Enter fullscreen mode',
         exitFullScreenTitle: 'Exit fullscreen mode',
         onFullScreenChange: null,
+        showNotification: true,
     },
 
     onAdd: function (map) {
@@ -22,7 +23,7 @@ L.Control.FullScreenButton = L.Control.extend({
         };
 
         this._eventHandlers = {
-            fullscreenchange: this._throttle(() => this._handleFullScreenChange(container), 100),
+            fullscreenchange: this._throttle(() => this._handleFullScreenChange(container, map), 100),
             keydown: this._preventF11Default.bind(this),
         };
 
@@ -42,9 +43,12 @@ L.Control.FullScreenButton = L.Control.extend({
         try {
             await this._toggleFullScreenElement(mapContainer, !isFullScreen);
             this._updateIcon(this._container, !isFullScreen);
-            this._handleFullScreenChange(mapContainer);
+            this._handleFullScreenChange(mapContainer, map);
         } catch (err) {
-            console.error(`Error attempting to change full-screen mode: ${err.message} (${err.name})`);
+            console.error(`Error switching to full-screen mode: ${err.message} (${err.name})`);
+            if (this.options.showNotification) {
+                this._showNotification(`Error switching to full-screen mode`, mapContainer);
+            }
         }
     },
 
@@ -68,7 +72,7 @@ L.Control.FullScreenButton = L.Control.extend({
         map.invalidateSize();
     },
 
-    _handleFullScreenChange: function (container) {
+    _handleFullScreenChange: function (container, map) {
         const isFullScreen = this._isFullScreen(container);
         this._updateIcon(container, isFullScreen);
         this._container.title = isFullScreen ? this.options.exitFullScreenTitle : this.options.enterFullScreenTitle;
@@ -81,6 +85,13 @@ L.Control.FullScreenButton = L.Control.extend({
                 this.options.onFullScreenChange(isFullScreen);
                 this._isHandlingFullScreenChange = false;
             });
+        }
+
+        if (this.options.showNotification) {
+            this._showNotification(
+                isFullScreen ? 'Full-screen mode is ON' : 'Full-screen mode is OFF',
+                map.getContainer()
+            );
         }
     },
 
@@ -160,6 +171,33 @@ L.Control.FullScreenButton = L.Control.extend({
             element.classList.contains('pseudo-fullscreen')
         );
     },
+
+    _showNotification: function (message, mapContainer) {
+        if (this._notificationElement) {
+            mapContainer.removeChild(this._notificationElement);
+            this._notificationElement = null;
+            clearTimeout(this._notificationTimeout);
+        }
+
+        const notification = L.DomUtil.create('div', '', mapContainer);
+        notification.id = 'map-notification';
+        notification.innerText = message;
+        mapContainer.appendChild(notification);
+
+        this._notificationElement = notification;
+
+        this._notificationTimeout = setTimeout(() => {
+            notification.style.transition = 'opacity 1s';
+            notification.style.opacity = '0';
+
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    mapContainer.removeChild(notification);
+                }
+                this._notificationElement = null;
+            }, 1000);
+        }, 3000);
+    },
 });
 
 L.control.fullScreenButton = function (options) {
@@ -186,7 +224,23 @@ style.innerHTML = `
         width: 30px;
         height: 30px;
         cursor: pointer;
-        z-index: 9999 !important;
+        z-index: 9999;
+    }
+
+    #map-notification {
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: #00000099;
+        color: #ffffff;
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius: 5px;
+        z-index: 9999;
     }
 `;
 document.head.appendChild(style);
