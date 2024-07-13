@@ -4,14 +4,14 @@ A Leaflet plugin for creating a button control with the functionality to activat
 
 The idea came from a small project: **[Map_with_Marker_Clusters](https://github.com/sergeiown/Map_with_Marker_Clusters)** during the work on which there was a need to implement a full-screen mode but there was no desire to use existing plugins.
 
-## Table of Contents
+## [Table of Contents](#contents)
 
 - [Class Diagram](#class-diagram)
 - [API](#api)
 - [Note](#note)
 - [Browser Support](#browser-support)
 - [Usage](#usage)
-- [Example of use](#example)
+- [Example](#example)
 - [MIT License](#mit-license)
 
 ## [Class Diagram](#class-diagram)
@@ -152,7 +152,7 @@ fullScreenControl
     });
 ```
 
-## [Example of use](#example)
+## [Example](#example)
 
 **https://sergeiown.github.io/Leaflet_FullScreen_Button/**
 
