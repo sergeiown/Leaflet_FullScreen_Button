@@ -1,4 +1,4 @@
-# [Leaflet FullScreen Button](https://sergeiown.github.io/Leaflet_FullScreen_Button/)
+# [Leaflet FullScreen Button](https://github.com/sergeiown/Leaflet_FullScreen_Button)
 
 A Leaflet plugin for creating a button control with the functionality to activate full-screen mode. Simple and straightforward. Does not contain anything superfluous except for convenient and necessary options.
 
