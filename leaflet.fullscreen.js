@@ -227,6 +227,10 @@ style.innerHTML = `
         z-index: 9999;
     }
 
+    .leaflet-control-fullscreen:hover {
+        background-color: #F4F4F4;
+    }
+
     #map-notification {
         position: absolute;
         left: 50%;
