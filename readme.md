@@ -41,8 +41,9 @@ L.control
         exitFullScreenIcon: 'path/to/exit-icon.svg',
         enterFullScreenTitle: 'your text',
         exitFullScreenTitle: 'your text',
+        showNotification: true,
         onFullScreenChange: () => {
-            your function;
+            'your function';
         },
     })
     .addTo(map);
@@ -63,19 +64,20 @@ fullScreenControl
 
 ## API
 
-Option                    | Type       | Default                      | Description
---------------------------|------------|------------------------------|------------------------------------------------------
-`position`                | `String`   | `'topleft'`                  | Position of the button on the map.
-`title`                   | `String`   | `'Toggle fullscreen mode'`   | The text of the button tooltip.
-`enterFullScreenIcon`     | `String`   | `null`                       | Image path for the button to enter full screen mode. Can be specified in formats: PNG, JPEG, SVG, or other formats supported by the web browser.
-`exitFullScreenIcon`      | `String`   | `null`                       | Image path for the button to exit full screen mode. Can be specified in formats: PNG, JPEG, SVG, or other formats supported by the web browser.
-`enterFullScreenTitle`    | `String`   | `'Enter fullscreen mode'`    | Prompt text for entering full-screen mode.
-`exitFullScreenTitle`     | `String`   | `'Exit fullscreen mode'`     | The text of the prompt to exit full-screen mode.
-`onFullScreenChange`      | `Function` | `null`                       | Callback function that is called when the fullscreen mode changes.
+| Option                    | Type       | Default                      | Description                                                                                  |
+|---------------------------|------------|------------------------------|----------------------------------------------------------------------------------------------|
+| `position`                | `String`   | `'topleft'`                  | Position of the button on the map.                                                           |
+| `title`                   | `String`   | `'Toggle fullscreen mode'`   | The text of the button tooltip.                                                              |
+| `enterFullScreenIcon`     | `String`   | `null`                       | Image path for the button to enter full screen mode. Can be specified in formats: PNG, JPEG, SVG, or other formats supported by the web browser. |
+| `exitFullScreenIcon`      | `String`   | `null`                       | Image path for the button to exit full screen mode. Can be specified in formats: PNG, JPEG, SVG, or other formats supported by the web browser.  |
+| `enterFullScreenTitle`    | `String`   | `'Enter fullscreen mode'`    | Prompt text for entering full-screen mode.                                                   |
+| `exitFullScreenTitle`     | `String`   | `'Exit fullscreen mode'`     | The text of the prompt to exit full-screen mode.                                             |
+| `showNotification`        | `Boolean`  | `true`                       | Indicates whether to display a notification when switching to full screen mode.              |
+| `onFullScreenChange`      | `Function` | `null`                       | Callback function that is called when the fullscreen mode changes.                           |
 
-| Method                         | Returns            | Description                                                                                                                                               |
-|-------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `toggleFullScreen(map: L.Map)`| `Promise<void>`       | Toggles the full screen mode state for the map. Uses different methods for requesting full screen mode depending on the browser.             |                            |
+| Method                        | Returns             | Description                                                                                                                                  |
+|-------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| `toggleFullScreen(map: L.Map)`| `Promise<void>`     | Toggles the full screen mode state for the map. Uses different methods for requesting full screen mode depending on the browser.             | 
 
 ## Note
 
