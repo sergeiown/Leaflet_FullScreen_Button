@@ -4,7 +4,17 @@ A Leaflet plugin for creating a button control with the functionality to activat
 
 The idea came from a small project: **[Map_with_Marker_Clusters](https://github.com/sergeiown/Map_with_Marker_Clusters)** during the work on which there was a need to implement a full-screen mode but there was no desire to use existing plugins.
 
-## Class Diagram
+## Table of Contents
+
+- [Class Diagram](#class-diagram)
+- [API](#api)
+- [Note](#note)
+- [Browser Support](#browser-support)
+- [Usage](#usage)
+- [Example of use](#example)
+- [MIT License](#mit-license)
+
+## [Class Diagram](#class-diagram)
 
 The following diagram outlines the structure and components of the `FullScreenButton` class:
 
@@ -49,7 +59,7 @@ graph LR;
     E --> E4[#map-notification]
 ```
 
-## API
+## [API](#api)
 
 | Option                    | Type       | Default                      | Description                                                                                  |
 |---------------------------|------------|------------------------------|----------------------------------------------------------------------------------------------|
@@ -66,12 +76,12 @@ graph LR;
 |-------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
 | `toggleFullScreen(map: L.Map)`| `Promise<void>`     | Toggles the full screen mode state for the map. Uses different methods for requesting full screen mode depending on the browser.             | 
 
-## Note
+## [Note](#note)
 
 - The pseudo-fullscreen mode is used as an alternative method for simulating fullscreen mode in cases where direct API methods for fullscreen mode are not supported by the browser. A prime example is the Safari browser on iOS when used on an iPhone
 - Behavior when pressing the F11 key has been changed to use the `toggleFullScreen(map: L.Map)` method
 
-## Browser Support
+## [Browser Support](#browser-support)
 
 | Browser          | Version | Support Description                                                                 |
 |------------------|---------|-------------------------------------------------------------------------------------|
@@ -84,7 +94,7 @@ graph LR;
 | **iOS Safari**   | 11+     | Pseudo-fullscreen mode through CSS classes, as the fullscreen API is not supported. |
 | **Android Browser** | 50+  | Full support of the fullscreen API.                                                 |
 
-## Usage
+## [Usage](#usage)
 
 - **Install [Leaflet](https://leafletjs.com/download.html) - an open-source JavaScript library for mobile-friendly interactive maps**
 
@@ -142,10 +152,10 @@ fullScreenControl
     });
 ```
 
-## Example of use
+## [Example of use](#example)
 
 **https://sergeiown.github.io/Leaflet_FullScreen_Button/**
 
-## MIT License
+## [MIT License](#mit-license)
 
 **[Copyright (c) 2024 Serhii I. Myshko](https://github.com/sergeiown/Leaflet_FullScreen_Button/blob/main/LICENSE)**
