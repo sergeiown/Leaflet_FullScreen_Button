@@ -99,17 +99,17 @@ graph LR;
 - **Install [Leaflet](https://leafletjs.com/download.html) - an open-source JavaScript library for mobile-friendly interactive maps**
 
 - **Add [leaflet.fullscreen.js](https://github.com/sergeiown/Leaflet_FullScreen_Button/tags) to the page**
-```
+```html
 <script src="./leaflet.fullscreen.js"></script>
 ```
 
 - **Initialize the map**
-```
+```javascript
 const map = L.map('map').setView([49.1, 31.2], 5);
 ```
 
 - **Add a layer**
-```
+```javascript
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
     minZoom: 4,
@@ -118,11 +118,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 ```
 
 - **Add a new control for full screen mode with options of your choice**
-```
+```javascript
 L.control.fullScreenButton({ position: 'topleft' }).addTo(map);
 ```
 **or**
-```
+```javascript
 L.control
     .fullScreenButton({
         position: 'topleft',
@@ -140,7 +140,7 @@ L.control
 ```
 
 - **You can call the toggleFullScreen method programmatically if necessary**
-```
+```javascript
 const fullScreenControl = L.control.fullScreenButton();
 fullScreenControl
     .toggleFullScreen(map)
