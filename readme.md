@@ -1,9 +1,11 @@
-# [![image](https://github.com/user-attachments/assets/5ff5f21e-c024-4e20-a57f-75a04aba53e1) Leaflet FullScreen Button](https://github.com/sergeiown/Leaflet_FullScreen_Button)
+# [Leaflet FullScreen Button](https://github.com/sergeiown/Leaflet_FullScreen_Button) 
+![image](https://github.com/user-attachments/assets/5ff5f21e-c024-4e20-a57f-75a04aba53e1)
+
 A Leaflet plugin for creating a button control with the functionality to activate full-screen mode. Simple and straightforward. Does not contain anything superfluous except for convenient and necessary options.
 
 The idea came from a small project: **[Map_with_Marker_Clusters](https://github.com/sergeiown/Map_with_Marker_Clusters)** during the work on which there was a need to implement a full-screen mode but there was no desire to use existing plugins.
 
-## [Table of Contents](#contents)
+## [Table of Contents](#leaflet-fullscreen-button)
 
 - [Class Diagram](#class-diagram)
 - [API](#api)
@@ -11,76 +13,88 @@ The idea came from a small project: **[Map_with_Marker_Clusters](https://github.
 - [Browser Support](#browser-support)
 - [Usage](#usage)
 - [Example](#example)
-- [MIT License](#mit-license)
+- [License](#license)
 
-## [Class Diagram](#class-diagram)
+## [Class Diagram](#leaflet-fullscreen-button)
 
-The following diagram outlines the structure and components of the `FullScreenButton` class:
+This diagram encompasses various options for configuration, essential methods for functionality, registered event handlers for user interactions, and the associated styling for visual presentation. The components are organized to enhance understanding and provide a clear overview of the `FullScreenButton` class's design and purpose.
 
 ```mermaid
-graph LR;
-    A[FullScreenButton Class] --> B[Options]
-    A --> C[Methods]
-    A --> D[Event Handlers]
-    A --> E[Styling]
+graph TB;
+    A[FullScreenButton Class] 
 
-    B --> B1[position: 'topleft']
-    B --> B2[title: 'Toggle fullscreen']
-    B --> B3[enterFullScreenIcon: null]
-    B --> B4[exitFullScreenIcon: null]
-    B --> B5[enterFullScreenTitle: 'Enter fullscreen mode']
-    B --> B6[exitFullScreenTitle: 'Exit fullscreen mode']
-    B --> B7[onFullScreenChange: null]
-    B --> B8[showNotification: true]
+    subgraph Options
+        B1[position]
+        B2[title]
+        B3[enterFullScreenIcon]
+        B4[exitFullScreenIcon]
+        B5[enterFullScreenTitle]
+        B6[exitFullScreenTitle]
+        B7[onFullScreenChange]
+        B8[showNotification]
+    end
 
-    C --> C1[public methods]
-    C1 --> C2[onAdd]
-    C1 --> C3[onRemove]
-    C1 --> C4[toggleFullScreen]
+    subgraph Methods
+        subgraph Public_Methods
+            C1[onAdd]
+            C2[onRemove]
+            C3[toggleFullScreen]
+        end
 
-    C --> C5[private methods]
-    C5 --> C6[_toggleFullScreenElement]
-    C5 --> C7[_handleFullScreenChange]
-    C5 --> C8[_preventF11Default]
-    C5 --> C9[_updateIcon]
-    C5 --> C10[_addEventListeners]
-    C5 --> C11[_removeEventListeners]
-    C5 --> C12[_throttle]
-    C5 --> C13[_isFullScreen]
-    C5 --> C14[_showNotification]
+        subgraph Private_Methods
+            C4[_toggleFullScreenElement]
+            C5[_handleFullScreenChange]
+            C6[_preventF11Default]
+            C7[_updateIcon]
+            C8[_addEventListeners]
+            C9[_removeEventListeners]
+            C10[_throttle]
+            C11[_isFullScreen]
+            C12[_showNotification]
+        end
+    end
 
-    D --> D1[fullscreenchange]
-    D --> D2[keydown]
+    subgraph Event_Handlers
+        D1[fullscreenchange]
+        D2[keydown]
+    end
 
-    E --> E1[.pseudo-fullscreen]
-    E --> E2[.leaflet-control-fullscreen]
-    E --> E3[.leaflet-control-fullscreen:hover]
-    E --> E4[#map-notification]
+    subgraph Styling
+        E1[.pseudo-fullscreen]
+        E2[.leaflet-control-fullscreen]
+        E3[.leaflet-control-fullscreen:hover]
+        E4[#map-notification]
+    end
+
+    A --> Options
+    A --> Methods
+    A --> Event_Handlers
+    A --> Styling
 ```
 
-## [API](#api)
+## [API](#leaflet-fullscreen-button)
 
 | Option                    | Type       | Default                      | Description                                                                                  |
 |---------------------------|------------|------------------------------|----------------------------------------------------------------------------------------------|
-| `position`                | `String`   | `'topleft'`                  | Position of the button on the map.                                                           |
-| `title`                   | `String`   | `'Toggle fullscreen mode'`   | The text of the button tooltip.                                                              |
-| `enterFullScreenIcon`     | `String`   | `null`                       | Image path for the button to enter full screen mode. Can be specified in formats: PNG, JPEG, SVG, or other formats supported by the web browser. |
-| `exitFullScreenIcon`      | `String`   | `null`                       | Image path for the button to exit full screen mode. Can be specified in formats: PNG, JPEG, SVG, or other formats supported by the web browser.  |
-| `enterFullScreenTitle`    | `String`   | `'Enter fullscreen mode'`    | Prompt text for entering full-screen mode.                                                   |
-| `exitFullScreenTitle`     | `String`   | `'Exit fullscreen mode'`     | The text of the prompt to exit full-screen mode.                                             |
-| `showNotification`        | `Boolean`  | `true`                       | Indicates whether to display a notification when switching to full screen mode.              |
-| `onFullScreenChange`      | `Function` | `null`                       | Callback function that is called when the fullscreen mode changes.                           |
+| `position`                | `String`   | `'topleft'`                  | Position of the button on the map. Possible values include: <br>- `'topleft'` <br>- `'topright'` <br>- `'bottomleft'` <br>- `'bottomright'` |
+| `title`                   | `String`   | `'Toggle fullscreen mode'`   | The text of the button tooltip. This can be customized to any string value for better user guidance. |
+| `enterFullScreenIcon`     | `String`   | `null`                       | Image path for the button to enter full screen mode. Supported formats include: <br>- PNG <br>- JPEG <br>- SVG <br>- Other web-supported image formats. |
+| `exitFullScreenIcon`      | `String`   | `null`                       | Image path for the button to exit full screen mode. Supported formats include: <br>- PNG <br>- JPEG <br>- SVG <br>- Other web-supported image formats.  |
+| `enterFullScreenTitle`    | `String`   | `'Enter fullscreen mode'`    | Prompt text for entering full-screen mode. This can be customized to any string value for clarity. |
+| `exitFullScreenTitle`     | `String`   | `'Exit fullscreen mode'`     | The text of the prompt to exit full-screen mode. This can also be customized as needed. |
+| `showNotification`        | `Boolean`  | `true`                       | Indicates whether to display a notification when switching to full screen mode. Possible values: <br>- `true` (notification displayed) <br>- `false` (notification not displayed) |
+| `onFullScreenChange`      | `Function` | `null`                       | Callback function that is called when the fullscreen mode changes. This can accept any function reference to handle custom actions upon mode change. |
 
 | Method                        | Returns             | Description                                                                                                                                  |
 |-------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
 | `toggleFullScreen(map: L.Map)`| `Promise<void>`     | Toggles the full screen mode state for the map. Uses different methods for requesting full screen mode depending on the browser.             | 
 
-## [Note](#note)
+## [Note](#leaflet-fullscreen-button)
 
 - The pseudo-fullscreen mode is used as an alternative method for simulating fullscreen mode in cases where direct API methods for fullscreen mode are not supported by the browser. A prime example is the Safari browser on iOS when used on an iPhone
 - Behavior when pressing the F11 key has been changed to use the `toggleFullScreen(map: L.Map)` method
 
-## [Browser Support](#browser-support)
+## [Browser Support](#leaflet-fullscreen-button)
 
 | Browser          | Version | Support Description                                                                 |
 |------------------|---------|-------------------------------------------------------------------------------------|
@@ -93,7 +107,7 @@ graph LR;
 | **iOS Safari**   | 11+     | Pseudo-fullscreen mode through CSS classes, as the fullscreen API is not supported. |
 | **Android Browser** | 50+  | Full support of the fullscreen API.                                                 |
 
-## [Usage](#usage)
+## [Usage](#leaflet-fullscreen-button)
 
 - **Install [Leaflet](https://leafletjs.com/download.html) - an open-source JavaScript library for mobile-friendly interactive maps**
 
@@ -151,10 +165,10 @@ fullScreenControl
     });
 ```
 
-## [Example](#example)
+## [Example](#leaflet-fullscreen-button)
 
 **https://sergeiown.github.io/Leaflet_FullScreen_Button/**
 
-## [MIT License](#mit-license)
+## [License](#leaflet-fullscreen-button)
 
 **[Copyright (c) 2024 Serhii I. Myshko](https://github.com/sergeiown/Leaflet_FullScreen_Button/blob/main/LICENSE)**
